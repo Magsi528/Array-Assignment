@@ -1,1 +1,95 @@
-empty
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+void scanArr(vector<double>& arr) {
+    double element;
+    cout << "Enter elements (type 'q' to stop):" << endl;
+    while (true) {
+        cout << "Element " << (arr.size() + 1) << ": ";
+        if (!(cin >> element)) {
+            cin.clear(); // clear the error flag
+            cin.ignore(10000, '\n'); // discard invalid input
+            break;
+        }
+        arr.push_back(element);
+    }
+}
+
+void displayArr(const vector<double>& arr) {
+    for (int i = 0; i < arr.size(); i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+}
+
+double findMax(const vector<double>& arr) {
+    double max = arr[0];
+    for (int i = 1; i < arr.size(); i++) {
+        if (arr[i] > max) {
+            max = arr[i];
+        }
+    }
+    return max;
+}
+
+double findMin(const vector<double>& arr) {
+    double min = arr[0];
+    for (int i = 1; i < arr.size(); i++) {
+        if (arr[i] < min) {
+            min = arr[i];
+        }
+    }
+    return min;
+}
+
+void sortAscending(vector<double>& arr) {
+    for (int i = 0; i < arr.size() - 1; i++) {
+        for (int j = 0; j < arr.size() - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                swap(arr[j], arr[j + 1]);
+            }
+        }
+    }
+}
+
+void sortDescending(vector<double>& arr) {
+    for (int i = 0; i < arr.size() - 1; i++) {
+        for (int j = 0; j < arr.size() - i - 1; j++) {
+            if (arr[j] < arr[j + 1]) {
+                swap(arr[j], arr[j + 1]);
+            }
+        }
+    }
+}
+
+int main() {
+    vector<double> myArray;
+
+    scanArr(myArray);
+
+    if (myArray.empty()) {
+        cout << "No valid elements entered." << endl;
+        return 1;
+    }
+
+    cout << "Unsorted array: ";
+    displayArr(myArray);
+
+    sortAscending(myArray);
+    cout << "Sorted in ascending order: ";
+    displayArr(myArray);
+
+    sortDescending(myArray);
+    cout << "Sorted in descending order: ";
+    displayArr(myArray);
+
+    double maxElement = findMax(myArray);
+    cout << "Maximum element: " << maxElement << endl;
+
+    double minElement = findMin(myArray);
+    cout << "Minimum element: " << minElement << endl;
+
+    return 0;
+}
